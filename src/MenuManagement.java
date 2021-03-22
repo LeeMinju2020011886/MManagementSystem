@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class MenuManagement {
 
 	public static void main(String[] args) {
+		
 		int num = 0;
 		Scanner input = new Scanner(System.in);
 		
@@ -19,11 +20,18 @@ public class MenuManagement {
 			
 			switch(num) {
 				case 1:
-				System.out.println("<Amount>");
-				System.out.print("Name : ");
-				String DepositName = input.next();
-				System.out.print("Amount : ");
-				int DepositAmount = input.nextInt();
+					int num2 = 0;
+					while (num2 != 2) {
+						System.out.println("<Amount>");
+						System.out.print("Name : ");
+						String DepositName = input.next();
+						System.out.print("Amount : ");
+						int DepositAmount = input.nextInt();
+						System.out.println("Continue?");
+						System.out.println("1. Yes");
+						System.out.println("2. No");
+						num2 = input.nextInt();			//int num2 = 는 왜 안됐던거지??
+					}
 					break;
 				case 2:
 				System.out.println("<Withdrawal>");
