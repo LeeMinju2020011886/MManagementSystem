@@ -16,14 +16,26 @@ public class MenuManagement {
 			System.out.print("Select one number between 1 - 5:");
 			num = input.nextInt();
 			System.out.println();
-			if (num == 1) {
+			
+			switch(num) {
+				case 1:
+				System.out.println("<Amount>");
 				System.out.print("Name : ");
 				String DepositName = input.next();
 				System.out.print("Amount : ");
 				int DepositAmount = input.nextInt();
+					break;
+				case 2:
+				System.out.println("<Withdrawal>");
+				System.out.print("Name : ");
+				String WithdrawalName = input.next();
+				System.out.print("Amount : ");
+				int WithdrawalAmount = input.nextInt();
+					break;
+				case 3:
+				case 4:
+				case 5:
 			}
 		}
-		
 	}
-
 }
