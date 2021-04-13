@@ -2,30 +2,38 @@ import java.util.Scanner;
 
 public class MenuManagement {
 	public static void main(String[] args) {
-		int num = 0;
 		Scanner input = new Scanner(System.in);
 		MoneyManage moneyManage = new MoneyManage(input);
-		// 처음에 현재 잔고를 적는 것을 시작으로..
-		while (num != 5) {
+		
+		int num = -1;
+		while (num != 6) {
+			System.out.println("*** Money Management System Menu ***");
 			System.out.println("1. Deposit");		
 			System.out.println("2. Withdrawal");	
-			System.out.println("3. View Balance");	
-			System.out.println("4. Edit System");	
-			System.out.println("5. Exit");			
-			System.out.print("Select one number between 1 - 5:");
+			System.out.println("3. View deals");	
+			System.out.println("4. Edit System");
+			System.out.println("5. delete deal");
+			System.out.println("6. Exit");			
+			System.out.print("Select one number between 1 - 6:");
 			num = input.nextInt();
 			System.out.println();
 			if (num == 1) {
 				moneyManage.addDeposit();
 			}
-			if (num == 2) {
+			else if (num == 2) {
 				moneyManage.addWithdrawal();
 			}
-			if (num == 3) {
-				moneyManage.ViewBalance();
+			else if (num == 3) {
+				moneyManage.viewdeals();
 			}
-			if (num == 4) {
-				moneyManage.EditSystem();
+			else if (num == 4) {
+				moneyManage.editSystem();
+			}
+			else if (num == 5) {
+				moneyManage.deletedeal();
+			}
+			else {
+				continue;
 			}
 		}
 	}	
