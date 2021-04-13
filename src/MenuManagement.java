@@ -37,33 +37,4 @@ public class MenuManagement {
 			}
 		}
 	}	
-	
-	
-			/*switch(num) {
-				case 1:
-					int num2 = 0;
-					@@@@@@@@@@@@@@@@@@@while (num2 != 2) {
-						System.out.println("<Amount>");
-						System.out.print("Name : ");
-						String DepositName = input.next();
-						System.out.print("Amount : ");
-						int DepositAmount = input.nextInt();
-						System.out.println("Continue?");
-					@@@@@@@@@@@@@@@@@@@System.out.println("1. Yes");
-					@@@@@@@@@@@@@@@@@@@System.out.println("2. No");
-					@@@@@@@@@@@@@@@@@@@num2 = input.nextInt();			//@는 나중에 추가할 거!! 표시
-					}
-					break;
-				case 2:
-				System.out.println("<Withdrawal>");
-				System.out.print("Name : ");
-				String WithdrawalName = input.next();
-				System.out.print("Amount : ");
-				int WithdrawalAmount = input.nextInt();
-					break;
-				case 3:
-				case 4:
-				case 5:
-			}*/
-
 }
