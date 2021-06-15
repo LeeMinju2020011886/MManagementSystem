@@ -1,16 +1,26 @@
 package Money;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class DepositMoney {
+import exception.AmountFormatException;
 
-	protected Paykind kind = Paykind.Card;
+public abstract class DepositMoney implements Moneyinput, Serializable {			//abstract >> Deposit이라는 객체를 생성하지 않는다.
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4517492711906983620L;
+	protected Paykind kind = Paykind.Cash;  
 	protected String Category;
 	protected int UniNum;
 	protected int Amount;
 	protected String Memo;
 	
 	public DepositMoney() {
+	}
+	
+	public DepositMoney(Paykind kind) {
+		this.kind = kind;
 	}
 	
 	public DepositMoney(String category, int amount, int uninum) {
@@ -22,8 +32,15 @@ public class DepositMoney {
 		this.Amount = amount;
 		this.Category = category;
 		this.Memo = memo;
-		this.UniNum = uninum;
+		this.UniNum = uninum; 
 	}
+	public DepositMoney(Paykind kind, String category, int amount, String memo, int uninum) {
+		this.kind = kind;
+		this.Amount = amount;
+		this.Category = category;
+		this.Memo = memo;
+		this.UniNum = uninum; 
+	} 
 	
 	public Paykind getKind() {
 		return kind;
@@ -61,33 +78,60 @@ public class DepositMoney {
 		return Memo;
 	}
 
-	public void setMemo(String memo) {
+	public void setMemo(String memo) throws AmountFormatException {
+		if (!memo.contains("#") && !memo.equals("")) {
+			throw new AmountFormatException();
+		}
 		Memo = memo;
 	}
 
+
+	public abstract void printInfo(); 
 	
-	public void printInfo() {
-		System.out.println("Unique Number: " + this.UniNum + " Amount: "+ this.Amount +" Category: "+ this.Category  +" Memo: "+ this.Memo);
-	}
-	
-	public void getUserInput(Scanner input) {
-		System.out.print("Unique Number : ");
+	public void setUniNum(Scanner input) {
+		System.out.print("Unique Number: ");
 		int uniNum = input.nextInt();
 		this.setUniNum(uniNum);
-		
-		System.out.print("Amount : ");
+	}
+	
+	public void setAmount(Scanner input) {
+		System.out.print("Amount: ");
 		int amount = input.nextInt();
 		this.setAmount(amount);
-		
-		System.out.print("Category : ");
-		String category = input.next();		
+	}
+	
+	public void setCategory(Scanner input) {
+		System.out.print("Category: ");
+		String category= input.next();
 		this.setCategory(category);
-		
-		System.out.print("memo: ");
-		String memo = input.next();
-		this.setMemo(memo);
-	}  
-
+	}
+	
+	public void setMemo(Scanner input) { 
+		String memo = "";
+		while (!memo.contains("#")) {
+			System.out.print("Memo: ");
+			memo = input.next();
+			try {
+				this.setMemo(memo);
+			} catch (AmountFormatException e) {
+				System.out.println("Incorrect Memo Format. Put the memo that contains # ");
+				
+			}
+		}
+	}
+	public String getKindStirng() {
+		String skind = "none";
+		switch(this.kind) {
+		case Cash:
+			skind = "Cash";
+			break;
+		case Card:
+			skind = "Card";
+			break;
+		default:
+		}
+		return skind;
+	}
 
 }
 
