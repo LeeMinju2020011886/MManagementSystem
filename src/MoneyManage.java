@@ -1,65 +1,73 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 import Money.DeCash;
 import Money.Decard;
-import Money.DepositMoney;
 import Money.Moneyinput;
 import Money.Paykind;
 import Money.WithdrawalMoney;
 
-public class MoneyManage {
+public class MoneyManage implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1317378005046769263L;
+	
 	ArrayList<Moneyinput> depositmoneys = new ArrayList<Moneyinput>();
 	ArrayList<WithdrawalMoney> withdrawalmoneys = new ArrayList<WithdrawalMoney>();
 	int answer = 0;
-	Scanner input;
+	transient Scanner input;
 	MoneyManage(Scanner input){
-			this.input = input;
-	}
-	public void addDeposit() {
-			int kind = 0;
-			Moneyinput moneyinput;
-			while(kind != 1 && kind != 2) {
-				try {
-					System.out.println("<Deposit>");
-					System.out.println("1 for cash");
-					System.out.println("2 for card");
-					System.out.print("Select num for payment kind between 1 and 2: ");
-					kind = input.nextInt();
-					if (kind == 1) {
-						moneyinput = new DeCash(Paykind.Cash);
-						moneyinput.getUserInput(input);
-						depositmoneys.add(moneyinput);
-						break;
-					}
-					else if (kind == 2) {
-						moneyinput = new Decard(Paykind.Card);
-						moneyinput.getUserInput(input);
-						depositmoneys.add(moneyinput);
-						break;
-					}
-					else {
-						System.out.print("Select num for payment kind between 1 and 2: ");
-					}
-				}
-				catch(InputMismatchException e) {
-					System.out.println("Please put an integer between 1 and 2");
-					if (input.hasNext()) {
-						input.next();
-					}
-					kind = -1;
-				}
-			}
+		this.input = input;
 	}
 	
-	public void addWithdrawal() { //2¹ø
+	public void addDeposit() {
+		int kind = 0;
+		Moneyinput moneyinput;
+		while(kind != 1 && kind != 2) {
+			try {
+				System.out.println("<Deposit>");
+				System.out.println("1 for cash");
+				System.out.println("2 for card");
+				System.out.print("Select num for payment kind between 1 and 2: ");
+				kind = input.nextInt();
+				if (kind == 1) {
+					moneyinput = new DeCash(Paykind.Cash);
+					moneyinput.getUserInput(input);
+					depositmoneys.add(moneyinput);
+					break; 
+				}
+				else if (kind == 2) {
+					moneyinput = new Decard(Paykind.Card);
+					moneyinput.getUserInput(input);
+					depositmoneys.add(moneyinput);
+					break;
+				}
+				else {
+					System.out.print("Select num for payment kind between 1 and 2: ");
+				}
+			}
+			catch(InputMismatchException e) {
+				System.out.println("Please put an integer between 1 and 2");
+				if (input.hasNext()) {
+					input.next();
+				}
+				kind = -1;
+			}
+		} 
+	}
+	
+	public void addWithdrawal() {  //2¹ø
+		
 		System.out.println("<Withdrawal>");
 		System.out.print("Unique Number : ");
 		int UniNum = input.nextInt();
 		System.out.print("Amount : ");
 		int Amount = input.nextInt();
 		System.out.print("Category : ");
-		String Category = input.next();
+		String Category = input.next();		
 		System.out.print("memo: ");
 		String Memo = input.next();
 		
@@ -68,7 +76,8 @@ public class MoneyManage {
 	}
 	
 	public void viewdeals() {
-		System.out.println("<View deals>");
+		System.out.println("<View deals>"); 
+		
 		System.out.println("1. Deposit\n2. Withdrawal");
 		answer = input.nextInt();
 		if(answer == 1) {
@@ -78,11 +87,12 @@ public class MoneyManage {
 			}
 		}
 		if(answer == 2) {
-			for (int i =0; i<withdrawalmoneys.size(); i ++) {
+			for (int i =0; i<withdrawalmoneys.size(); i ++) { 
 				withdrawalmoneys.get(i).printInfo();
 			}
 		}
 	}
+	
 	public void deletedeal() {
 		System.out.println("<Edit System>");
 		System.out.println("1. Edit Deposit\n2. Edit Withdrawal");
@@ -112,6 +122,7 @@ public class MoneyManage {
 			}
 		}
 	}
+	
 	public int removefromList(int index, int uninum) {
 		if (index >= 0) {
 			depositmoneys.remove(index);
@@ -123,6 +134,7 @@ public class MoneyManage {
 			return -1;
 		}
 	}
+	
 	public int findIndex(int uninum) {
 		int index = -1;
 		for (int i =0; i<depositmoneys.size(); i ++) {
@@ -133,6 +145,7 @@ public class MoneyManage {
 		}
 		return index;
 	}
+	
 	public void editSystem() {
 		System.out.println("1. Edit Deposit\n2. Edit Withdrawal");
 		answer = input.nextInt();
@@ -168,6 +181,7 @@ public class MoneyManage {
 				}
 			}
 		}
+				
 		if(answer == 2) {
 			System.out.print("Unique Number: ");
 			int uninum = input.nextInt();
@@ -177,18 +191,18 @@ public class MoneyManage {
 					int num = -1;
 					while(num != 5) {
 						System.out.println("*** Money Management System Menu ***");
-						System.out.println("1. Unique Number");
-						System.out.println("2. Amount");
-						System.out.println("3. Category");
+						System.out.println("1. Unique Number");		
+						System.out.println("2. Amount");	
+						System.out.println("3. Category");	
 						System.out.println("4. Memo");
-						System.out.println("5. Exit");
+						System.out.println("5. Exit");			
 						System.out.print("Select one number between 1 - 5:");
 						num = input.nextInt();
 						System.out.println();
 						if (num == 1) {
 							System.out.print("Unique Number: ");
 							int uniNum = input.nextInt();
-							withdrawalmoney.setUniNum(uniNum);
+							withdrawalmoney.setUniNum(uniNum);	
 						}
 						else if (num == 2) {
 							System.out.print("Amount: ");
@@ -214,13 +228,18 @@ public class MoneyManage {
 			}
 		}
 	}
+	
+
+	
 	public void showEditMenu() {
 		System.out.println("*** Money Management System Menu ***");
-		System.out.println("1. Unique Number");
-		System.out.println("2. Amount");
-		System.out.println("3. Category");
+		System.out.println("1. Unique Number");		
+		System.out.println("2. Amount");	
+		System.out.println("3. Category");	
 		System.out.println("4. Memo");
-		System.out.println("5. Exit");
+		System.out.println("5. Exit");			
 		System.out.print("Select one number between 1 - 5:");
 	}
+
+
 }
