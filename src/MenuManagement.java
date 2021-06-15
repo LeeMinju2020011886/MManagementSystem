@@ -6,8 +6,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import gui.WindowFrame;
 import log.EventLogger;
 
 public class MenuManagement {
@@ -18,11 +16,10 @@ public class MenuManagement {
 		
 		Scanner input = new Scanner(System.in);
 		MoneyManage moneyManage = getObject("moneymanager.ser");
-		if (moneyManage == null) {
+		if (MoneyManage == null) {
 			moneyManage = new MoneyManage(input);
 		}
 		
-		WindowFrame frame = new WindowFrame(moneyManage);
 		selectMenu(input, moneyManage);
 		putObject(moneyManage, "moneymanager.ser");
 	}
