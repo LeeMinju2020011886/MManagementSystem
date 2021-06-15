@@ -2,37 +2,43 @@ package Money;
 
 import java.util.Scanner;
 
-public class DeCash extends DepositMoney {
+import exception.AmountFormatException;
+
+public class DeCash extends DepositMoney{
+	
+	public DeCash(Paykind kind) {
+		super(kind);
+	}
 	
 	public void getUserInput(Scanner input) {
-		System.out.print("Unique Number : ");
-		int uniNum = input.nextInt();
-		this.setUniNum(uniNum);
-		
-		System.out.print("Amount : ");
-		int amount = input.nextInt();
-		this.setAmount(amount);
-		
-		System.out.print("Category : ");
-		String category = input.next();		
-		this.setCategory(category);
+		setUniNum(input);
+		setAmount(input);
+		setCategory(input);
 		
 		char answer = 'x';
 		while (answer != 'y' && answer != 'Y' && answer != 'n' && answer != 'N') {
 			System.out.print("Do you have a memo? (Y/N) ");
 			answer = input.next().charAt(0);
-			if (answer == 'y' || answer == 'Y') {
-				System.out.print("memo: ");
-				String memo = input.next();
-				this.setMemo(memo);
-				break;
+			try {
+				if (answer == 'y' || answer == 'Y') {
+					setMemo(input);
+					break;
+				}
+				else if (answer == 'n' || answer == 'N') {
+					this.setMemo("");
+					break;
+				}
+				else {
+				}
 			}
-			else if (answer == 'n' || answer == 'N') {
-				this.setMemo("");
-				break;
-			}
-			else {
+			catch(AmountFormatException e) {
+				System.out.println("Incorrect Memo Format. Put the memo that contains # ");
 			}
 		}
-	}  
+	}
+	
+	public void printInfo() {
+		String skind = getKindStirng();
+		System.out.println("kind:" + skind + "Unique Number: " + this.UniNum + " Amount: "+ this.Amount +" Category: "+ this.Category  +" Memo: "+ this.Memo);
+	}
 }
